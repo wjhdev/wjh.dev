@@ -1,0 +1,8 @@
+.vagrant
+.stencil
+.DS_Store
+node_modules
+www
+
+
+*.env
