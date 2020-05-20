@@ -18,17 +18,17 @@ services:
       - server.env
     container_name: wjh.dev-mysql
 
-  #adminer:
-  #  image: adminer
-  #  restart: always
-  #  volumes:
-  #    - wjh.dev-mysql:/var/lib/mysql
-  #  expose:
-  #    - 8080
-  #  environment:
-  #    VIRTUAL_HOST: db.wjh.dev.test
-  #    ADMINER_DEFAULT_SERVER: db_node_domain:3306
-  #  container_name: wjh.dev-adminer
+  adminer:
+    image: adminer
+    restart: always
+    volumes:
+      - wjh.dev-mysql:/var/lib/mysql
+    expose:
+      - 8080
+    environment:
+      VIRTUAL_HOST: db.wjh.dev.test
+      ADMINER_DEFAULT_SERVER: db_node_domain:3306
+    container_name: wjh.dev-adminer
 
   wordpress:
     depends_on:
@@ -39,6 +39,9 @@ services:
     restart: always
     env_file:
       - server.env
+    volumes: 
+      - ./themes/:/var/www/html/wp-content/themes/
+      - ./uploads/:/var/www/html/wp-content/uploads/
     environment:
       VIRTUAL_HOST: wp.wjh.dev, direct.wp.wjh.dev, wp.wjh.dev.test
       WORDPRESS_DB_HOST: db_node_domain:3306
@@ -52,8 +55,8 @@ services:
     expose:
       - 80
     volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./nginx/error.log:/etc/nginx/error_log.log
+      - ./server/nginx.conf:/etc/nginx/nginx.conf
+      - ./server/error.log:/etc/nginx/error_log.log
       - ./www:/usr/share/nginx/html
 
 volumes: 
@@ -61,5 +64,4 @@ volumes:
     
 networks:
   default:
-    external:
-      name: wjh.dev-proxy
+    internal: true

@@ -18,14 +18,14 @@ Vagrant.configure("2") do |config|
   SHELL
 
   ## Install Puppet
-  config.vm.provision :shell, path: "vagrant/provision.sh"
+  config.vm.provision :shell, path: "server/provision.sh", privileged: false
 
   # Hostname
   config.vm.network :private_network, :ip => "192.168.19.60"
   config.vm.network "private_network", type: "dhcp"
-  
+
   # Mount vagrant 
-  config.vm.synced_folder ".", "/vagrant", :group => "www-data", :mount_options => ['dmode=775','fmode=664']
+  config.vm.synced_folder ".", "/home/vagrant/wjh.dev", :group => "www-data", :mount_options => ['dmode=775','fmode=664']
   
   # Performance improvements
   #  1. Assign a quarter of host memory and all available CPU's to VM
