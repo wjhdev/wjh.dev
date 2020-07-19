@@ -3,9 +3,9 @@
 # Shell script for generating self-signed cert for Vagrant
 #
 
-cd ~/badgerherald.com/server/nginx/
+cd ~/wjh.dev/server/nginx/
 mkdir ssl
-cd ~/badgerherald.com/server/nginx/ssl
+cd ~/wjh.dev/server/nginx/ssl
 
 DOMAIN="$1"
 if [ -z "$DOMAIN" ]; then
