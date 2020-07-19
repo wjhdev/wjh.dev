@@ -4,8 +4,13 @@
 #
 # 1. Sets clocks
 # 2. Install Docker
-# 3. Run
+# 3. Sign ssl certs
+# 4. Run
 #
+
+# 0. Args
+#
+DOMAIN="$1"
 
 # 1. Set Clocks
 #
@@ -32,10 +37,15 @@ sudo apt-get update -y
 sudo apt-get install docker-ce docker-ce-cli -y
 sudo apt-get install docker-compose -y
 
-# 2. Run
+# 3. SSL
+#
+sh ~/wjh.dev/server/provision-ssl.sh $DOMAIN
+
+# 4. Run
 #
 cd ~/wjh.dev
 sudo service docker start
+sudo docker network create wjh.dev-network
 sudo docker-compose up -d
 
 echo 'Finished provision.sh'

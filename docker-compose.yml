@@ -1,67 +1,65 @@
 version: "3"
 
 services:
-  nginx-proxy:
-    image: jwilder/nginx-proxy
-    container_name: wjh.dev-proxy
+  nginx:
+    image: nginx:latest
+    container_name: wjh.dev-nginx
+    links:
+      - wordpress
     ports:
-      - "80:80"
+      - 80:80
+      - 443:443
     volumes:
-      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - wjh.dev-wordpress:/var/www/html 
+      - ./server/nginx/wjh.dev.conf:/etc/nginx/nginx.conf
+      - ./server/nginx/ssl/${SSL_CERTIFICATE_NAME}.crt:/etc/ssl/certs/localhost.crt
+      - ./server/nginx/ssl/${SSL_CERTIFICATE_NAME}.key:/etc/ssl/private/localhost.key
+    restart: always
 
-  db_node_domain:
+  mariadb:
+    container_name: wjh.dev-mysql
     image: mariadb
     volumes:
+      - ./server/sql/install/:/docker-entrypoint-initdb.d
+      - ./server/sql/my.cnf:/etc/mysql/conf.d/my.cnf
       - wjh.dev-mysql:/var/lib/mysql:rw
     restart: always
-    env_file:
-      - server.env
-    container_name: wjh.dev-mysql
-
-  adminer:
-    image: adminer
-    restart: always
-    volumes:
-      - wjh.dev-mysql:/var/lib/mysql
     expose:
-      - 8080
-    environment:
-      VIRTUAL_HOST: db.wjh.dev.test
-      ADMINER_DEFAULT_SERVER: db_node_domain:3306
-    container_name: wjh.dev-adminer
+      - 3306
+    environment: 
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_USER: ${MYSQL_WORDPRESS_USER}
+      MYSQL_PASSWORD: ${MYSQL_WORDPRESS_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_WORDPRESS_DATABASE}
 
   wordpress:
+    container_name: wjh.dev-wordpress
     depends_on:
-      - db_node_domain
+      - mariadb
     image: wordpress:latest
     expose:
       - 80
     restart: always
-    env_file:
-      - server.env
     volumes: 
-      - ./themes/:/var/www/html/wp-content/themes/
-      - ./uploads/:/var/www/html/wp-content/uploads/
+      - wjh.dev-wordpress:/var/www/html
+      - ./server/wp-content:/var/www/html/wp-content/
+      - ./server/app:/var/www/html/app
     environment:
-      VIRTUAL_HOST: wp.wjh.dev, direct.wp.wjh.dev, wp.wjh.dev.test
-      WORDPRESS_DB_HOST: db_node_domain:3306
-    container_name: wjh.dev-wordpress
-
-  stencil:
-    image: nginx:latest
-    container_name: wjh.dev-stencil
-    environment:
-      VIRTUAL_HOST: wjh.dev, direct.wjh.dev, wjh.dev.test
-    expose:
-      - 80
-    volumes:
-      - ./server/nginx.conf:/etc/nginx/nginx.conf
-      - ./server/error.log:/etc/nginx/error_log.log
-      - ./www:/usr/share/nginx/html
+      WORDPRESS_DB_HOST: mariadb:3306
+      WORDPRESS_DB_USER: ${MYSQL_WORDPRESS_DATABASE}
+      WORDPRESS_DB_PASSWORD: ${MYSQL_WORDPRESS_PASSWORD}
+      WORDPRESS_DB_NAME: ${MYSQL_WORDPRESS_DATABASE}
+      WORDPRESS_CONFIG_EXTRA: | 
+        /* Domain */
+        define("WP_HOME","${WORDPRESS_SITE_URL}");
+        define("WP_SITEURL","${WORDPRESS_SITE_URL}");
 
 volumes: 
   wjh.dev-mysql:
-    
+  wjh.dev-wordpress:
+
 networks:
   default:
-    internal: true
+    external:
+      name: wjh.dev-network
+    
