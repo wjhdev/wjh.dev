@@ -1,77 +1,28 @@
 
 
 wjh-grid {
-   z-index: 0;
    display: block;
-   @include setGrid(3, $columnWidth, $gutterWidth);
    position: relative;
-   left: -$gutterWidth;
-   padding-left: $gutterWidth;
-   .guides {
-      position: absolute;
-      width: 100%;
-      height: 100%;
-      top: 0;
-      & > span {
-         background: rgba(#8BE428,.1);
-         width: col(1,0,-2px);
-         margin-right: gutter(1);
-         height: 100%;
-         margin-bottom: 10px;
-         display: inline-block;
-         &:last-child {
-            margin-right: gutter(0);
+   .wrap {
+      margin: 0 auto;
+      max-width: 1020px;
+      & > [slot=left] {
+         float: left;
+      }
+      & > [slot=right] {
+         float: right;
+      }
+      & > [slot] {   
+         &.col-3 {
+            width: 30%;
          }
-         border-left: 1px solid rgba(#8BE428,.2);
-         border-right: 1px solid rgba(#8BE428,.2);
-         
-      } & > span * {
-         position: fixed;
-         padding: 3px;
-         font-size: 10px;
-         color: rgba(white,.2);
+         &.col-4 {
+            width: 40%;
+         }
+         &.col-6 {
+            width: 60%;
+         }
       }
    }
-}
 
-@media (min-width: (($columnWidth + $gutterWidth) * 8) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(6, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 11) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(9, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 14) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(12, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 17) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(15, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 20) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(18, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 23) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(21, $columnWidth, $gutterWidth);
-   }
-}
-
-@media (min-width: (($columnWidth + $gutterWidth) * 26) + ($gutterWidth * 2) + "px" ) {
-   wjh-grid {
-      @include setGrid(24, $columnWidth, $gutterWidth);
-   }
 }

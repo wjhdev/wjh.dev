@@ -18,16 +18,11 @@ export class WjhGrid {
 	render() {
 		return (
 			<Host>
-				{this.grid ? (
-					<div class="guides">
-						{[...Array(24)].map((_, index) => (
-							<span>
-								<span>{index + 1}</span>
-							</span>
-						))}
-					</div>
-				) : undefined}
-				<slot />
+				<div class="wrap">
+				<slot name="left" />
+				<slot name="right" />
+				<div style={{"clear": "both"}} />
+				</div>
 			</Host>
 		)
 	}

@@ -1,27 +1,32 @@
-import { Component, h } from '@stencil/core';
+import { Component, h, Prop } from '@stencil/core';
+import { Theme, TemplateQuery, TemplateType, TemplateFrontPageType, TemplateSingleType } from '@webpress/core';
 
 @Component({
   tag: 'wjh-home',
   styleUrl: 'wjh-home.scss',
 })
 export class WjhHome {
+  @Prop() theme : Theme
+  @Prop() query : TemplateQuery
+
   render() {
-    return [
-      <div class="header">
-        <wjh-grid><div class="header-content">wjh.dev</div></wjh-grid>
-      </div>
-      ,
-      <wjh-grid>
-        <div class="section">
-          <h1>👋 I'm Will Haynes</h1>
-          <p>I’ve been designing and developing websites and apps for over 10 years</p>
-          <hr />
-          <p>My 9-5 is in healthcare building iOS and Android apps for nurses</p>
-          <p>By night I’m currently working on a better way to build WordPress themes with web components</p>
-          <hr />
-          <p><a href="https://twitter.com/wjhdev">Twitter</a> · <a href="https://github.com/wjhdev">Github</a></p>
-        </div>
-      </wjh-grid>
-    ]
+    return (
+      [
+      <wjh-header-ribbon color="#A2E75A"></wjh-header-ribbon>,
+      <wp-router query={this.query}>
+        <wp-template args={ { type : TemplateType.FrontPage, frontPageType: TemplateFrontPageType.Page  } } component="wjh-front-page"></wp-template>
+        <wp-template args={ { 
+          type : TemplateType.Single
+        } } component="wjh-post"></wp-template>
+        <wp-template args={ { 
+          type : TemplateType.Single,
+          singleType: TemplateSingleType.Page 
+        } }  component="wjh-page"></wp-template>
+        <wp-template args={ { type : TemplateType.PageNotFound} }  component="wjh-404"></wp-template>
+        <wp-template args={ { type : TemplateType.Blog} }  component="wjh-updates"></wp-template>
+      </wp-router>,
+      <wjh-footer-ribbon color="#E85252"></wjh-footer-ribbon>,
+      ]
+    )
   }
 }

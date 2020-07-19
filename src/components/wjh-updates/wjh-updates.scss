@@ -1,0 +1,24 @@
+
+wjh-updates {
+    ol.posts {
+        list-style-type: none;
+        wp-title a {
+            text-decoration: none;
+            color: black;
+        }
+        li {
+            border-top: 2px solid rgba(black, .45);
+            margin-top: 18px;
+            margin-bottom:48px;
+            display: block;
+            wp-title {
+                display: inline-block;
+                margin-top: 18px;
+            }
+            wp-running-copy {
+                padding-bottom: 50px;
+            }
+            position: relative;
+        }
+    }
+}

@@ -2,10 +2,6 @@
 $columnWidth: 36;
 $gutterWidth: 14;
 
-* {
-	margin: 0;
-	padding: 0;
-}
 
 /***
  * Grid Mixins
@@ -95,3 +91,4 @@ $gutterWidth: 14;
 		}
 	}
 }
+

@@ -5,18 +5,65 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
+import { Query, TemplateQuery, Theme, } from "@webpress/core";
 export namespace Components {
+    interface Wjh404 {
+    }
+    interface WjhFooterRibbon {
+        "color": string;
+    }
+    interface WjhFrontPage {
+        "query": Query;
+    }
     interface WjhGrid {
     }
+    interface WjhHeaderRibbon {
+        "color": string;
+    }
     interface WjhHome {
+        "query": TemplateQuery;
+        "theme": Theme;
+    }
+    interface WjhPage {
+        "query": Query;
+    }
+    interface WjhPost {
+        "query": Query;
+    }
+    interface WjhUpdates {
+        "query": Query;
     }
 }
 declare global {
+    interface HTMLWjh404Element extends Components.Wjh404, HTMLStencilElement {
+    }
+    var HTMLWjh404Element: {
+        prototype: HTMLWjh404Element;
+        new (): HTMLWjh404Element;
+    };
+    interface HTMLWjhFooterRibbonElement extends Components.WjhFooterRibbon, HTMLStencilElement {
+    }
+    var HTMLWjhFooterRibbonElement: {
+        prototype: HTMLWjhFooterRibbonElement;
+        new (): HTMLWjhFooterRibbonElement;
+    };
+    interface HTMLWjhFrontPageElement extends Components.WjhFrontPage, HTMLStencilElement {
+    }
+    var HTMLWjhFrontPageElement: {
+        prototype: HTMLWjhFrontPageElement;
+        new (): HTMLWjhFrontPageElement;
+    };
     interface HTMLWjhGridElement extends Components.WjhGrid, HTMLStencilElement {
     }
     var HTMLWjhGridElement: {
         prototype: HTMLWjhGridElement;
         new (): HTMLWjhGridElement;
+    };
+    interface HTMLWjhHeaderRibbonElement extends Components.WjhHeaderRibbon, HTMLStencilElement {
+    }
+    var HTMLWjhHeaderRibbonElement: {
+        prototype: HTMLWjhHeaderRibbonElement;
+        new (): HTMLWjhHeaderRibbonElement;
     };
     interface HTMLWjhHomeElement extends Components.WjhHome, HTMLStencilElement {
     }
@@ -24,27 +71,88 @@ declare global {
         prototype: HTMLWjhHomeElement;
         new (): HTMLWjhHomeElement;
     };
+    interface HTMLWjhPageElement extends Components.WjhPage, HTMLStencilElement {
+    }
+    var HTMLWjhPageElement: {
+        prototype: HTMLWjhPageElement;
+        new (): HTMLWjhPageElement;
+    };
+    interface HTMLWjhPostElement extends Components.WjhPost, HTMLStencilElement {
+    }
+    var HTMLWjhPostElement: {
+        prototype: HTMLWjhPostElement;
+        new (): HTMLWjhPostElement;
+    };
+    interface HTMLWjhUpdatesElement extends Components.WjhUpdates, HTMLStencilElement {
+    }
+    var HTMLWjhUpdatesElement: {
+        prototype: HTMLWjhUpdatesElement;
+        new (): HTMLWjhUpdatesElement;
+    };
     interface HTMLElementTagNameMap {
+        "wjh-404": HTMLWjh404Element;
+        "wjh-footer-ribbon": HTMLWjhFooterRibbonElement;
+        "wjh-front-page": HTMLWjhFrontPageElement;
         "wjh-grid": HTMLWjhGridElement;
+        "wjh-header-ribbon": HTMLWjhHeaderRibbonElement;
         "wjh-home": HTMLWjhHomeElement;
+        "wjh-page": HTMLWjhPageElement;
+        "wjh-post": HTMLWjhPostElement;
+        "wjh-updates": HTMLWjhUpdatesElement;
     }
 }
 declare namespace LocalJSX {
+    interface Wjh404 {
+    }
+    interface WjhFooterRibbon {
+        "color"?: string;
+    }
+    interface WjhFrontPage {
+        "query"?: Query;
+    }
     interface WjhGrid {
     }
+    interface WjhHeaderRibbon {
+        "color"?: string;
+    }
     interface WjhHome {
+        "query"?: TemplateQuery;
+        "theme"?: Theme;
+    }
+    interface WjhPage {
+        "query"?: Query;
+    }
+    interface WjhPost {
+        "query"?: Query;
+    }
+    interface WjhUpdates {
+        "query"?: Query;
     }
     interface IntrinsicElements {
+        "wjh-404": Wjh404;
+        "wjh-footer-ribbon": WjhFooterRibbon;
+        "wjh-front-page": WjhFrontPage;
         "wjh-grid": WjhGrid;
+        "wjh-header-ribbon": WjhHeaderRibbon;
         "wjh-home": WjhHome;
+        "wjh-page": WjhPage;
+        "wjh-post": WjhPost;
+        "wjh-updates": WjhUpdates;
     }
 }
 export { LocalJSX as JSX };
 declare module "@stencil/core" {
     export namespace JSX {
         interface IntrinsicElements {
+            "wjh-404": LocalJSX.Wjh404 & JSXBase.HTMLAttributes<HTMLWjh404Element>;
+            "wjh-footer-ribbon": LocalJSX.WjhFooterRibbon & JSXBase.HTMLAttributes<HTMLWjhFooterRibbonElement>;
+            "wjh-front-page": LocalJSX.WjhFrontPage & JSXBase.HTMLAttributes<HTMLWjhFrontPageElement>;
             "wjh-grid": LocalJSX.WjhGrid & JSXBase.HTMLAttributes<HTMLWjhGridElement>;
+            "wjh-header-ribbon": LocalJSX.WjhHeaderRibbon & JSXBase.HTMLAttributes<HTMLWjhHeaderRibbonElement>;
             "wjh-home": LocalJSX.WjhHome & JSXBase.HTMLAttributes<HTMLWjhHomeElement>;
+            "wjh-page": LocalJSX.WjhPage & JSXBase.HTMLAttributes<HTMLWjhPageElement>;
+            "wjh-post": LocalJSX.WjhPost & JSXBase.HTMLAttributes<HTMLWjhPostElement>;
+            "wjh-updates": LocalJSX.WjhUpdates & JSXBase.HTMLAttributes<HTMLWjhUpdatesElement>;
         }
     }
 }
