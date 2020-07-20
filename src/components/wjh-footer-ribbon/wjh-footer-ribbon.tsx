@@ -7,6 +7,9 @@ import { Component, h, Prop  } from '@stencil/core';
 export class WJHFooterRibbon {
   @Prop() color: string
   render() {
-    return <div style={{"background": this.color}} />
+    return [
+      <wjh-grid><div slot="left" class="colophon"><b>Colophon</b> / &copy; 2020 <a href="https://twitter.com/wjhdev">Will Haynes</a> · Fonts <a href="https://typography.com">typography.com</a> · Powered by <a href="https://wordpress.org">WordPress</a> · Built with <a href="https://wjh.dev/webpress">webpress</a></div> </wjh-grid>,
+      <div style={{"background": this.color}} class="ribbon" />
+    ]
   }
 }

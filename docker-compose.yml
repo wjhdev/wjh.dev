@@ -42,7 +42,7 @@ services:
     restart: always
     volumes: 
       - wjh.dev-wordpress:/var/www/html
-      - ./server/wp-content:/var/www/html/wp-content/
+      - ./server/wp-content/themes:/var/www/html/wp-content/themes/
       - ./server/app:/var/www/html/app
     environment:
       WORDPRESS_DB_HOST: mariadb:3306

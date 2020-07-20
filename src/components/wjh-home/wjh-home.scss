@@ -9,8 +9,7 @@ wp-title {
 
 wp-running-copy,
 wp-excerpt-copy, 
-p,
-a  {
+p {
     font-family: "Hoefler Text A", "Hoefler Text B";
     font-style: normal;
     font-weight: 400;
@@ -44,4 +43,10 @@ body {
     color: white;
     margin: 0;
     padding: 0;
+}
+
+.colophon {
+    font-family: "Decimal A", "Decimal B";
+    font-weight: 600;
+    font-size: 16px;   
 }
