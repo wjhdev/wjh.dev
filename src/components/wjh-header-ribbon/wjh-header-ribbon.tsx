@@ -10,7 +10,7 @@ export class WJHRibbon {
     return [
       <div style={{"background": this.color}} class="ribbon" />,
       <wjh-grid>
-        <h1 slot="left"><b>wjh.dev</b>/</h1>
+        <h1 slot="left"><a href="/"><b>wjh.dev</b>/</a></h1>
       </wjh-grid>
     ]
   }

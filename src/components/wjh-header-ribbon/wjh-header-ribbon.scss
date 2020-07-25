@@ -8,6 +8,13 @@ wjh-header-ribbon {
         top: 0px;
         z-index: 100;
     }
+    a {
+        color: white;
+        text-decoration: none;
+        &:hover {
+            opacity: .8;
+        }
+    }
     h1 {
         font-family: "Decimal A", "Decimal B";
         font-style: normal;

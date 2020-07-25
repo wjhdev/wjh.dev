@@ -16,10 +16,8 @@ export class WJHPage {
       return
     }
     this.post = (await this.query.posts)[0] as Single
-    let features = (await this.query.connection.media({id:this.post.featuredMedia}))
-    if(features && features.length > 0) {
-      this.feature = features[0]
-    }
+    this.feature = await this.post.featuredMedia.query
+    this.author = await this.post.author.query
   }
 
   render() {
@@ -29,7 +27,6 @@ export class WJHPage {
     return <wjh-grid>
       <div slot="left">
         <wp-title post={this.post}></wp-title>
-        <wp-author author={this.author} />
         <wp-media media={this.feature} class="feature-image" />
         <wp-running-copy post={this.post}></wp-running-copy>
         <div style={{"clear": "both"}} />

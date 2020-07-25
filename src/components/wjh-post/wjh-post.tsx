@@ -1,6 +1,7 @@
 import { Component, h, Prop, State } from '@stencil/core';
 import { Query, Post, QueryContextual, Media, Author } from '@webpress/core';
 import '@webpress/theme'
+import 'highlight.js'
 
 @Component({
   tag: 'wjh-post',
@@ -17,11 +18,8 @@ export class WJHPost implements QueryContextual  {
       return
     }
     this.post = (await this.query.posts)[0] as Post
-    let features = (await this.query.connection.media({id:this.post.featuredMedia}))
-    if(features && features.length > 0) {
-      this.feature = features[0]
-    }
-    this.query.connection.authors({id: this.post.author}).then(author => {if(author && author.length > 0) { this.author = author[0] }} )
+    this.feature = await this.post.featuredMedia.query
+    this.author = await this.post.author.query
   }
 
   render() {
@@ -29,14 +27,16 @@ export class WJHPost implements QueryContextual  {
     if(!this.query || !this.post) {
       return
     }
-    return [
-      <div class="update right center">
-        <wp-title post={this.post} />
-        <wp-author author={this.author} />
+    return <wjh-grid>
+      <div slot="left" class="update right center col-7">
         <wp-media media={this.feature} class="feature-image" />
+        <wp-title post={this.post} />
+        <wp-subhead post={this.post} />
+        <wp-author author={this.author} />, <wp-date post={this.post}/>
+        
+        
         <wp-running-copy post={this.post}></wp-running-copy>
-        </div>,
-        <div style={{"clear": "both"}} />
-      ]
+      </div>
+      </wjh-grid>
   }
 }

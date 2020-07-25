@@ -14,5 +14,21 @@ wjh-front-page {
         display: block;
     }
     width: 100%;
+    .blog {
+        .post {
+            margin-bottom: 80px;
+            h2 {
+                font-size: 32px;
+                max-width: 90%;
+                margin-bottom: 0px;
+            }
+        }
+        wp-date {
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            display: inline;
+        }
+    }
+    
 }
 

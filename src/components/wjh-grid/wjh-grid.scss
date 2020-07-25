@@ -1,11 +1,14 @@
 
-
 wjh-grid {
    display: block;
    position: relative;
    .wrap {
       margin: 0 auto;
-      max-width: 1020px;
+      max-width: 90%;
+   }
+}
+@include breakpoint('desktop') {
+   wjh-grid .wrap {
       & > [slot=left] {
          float: left;
       }
@@ -22,7 +25,18 @@ wjh-grid {
          &.col-6 {
             width: 60%;
          }
+         &.col-7 {
+            width: 70%;
+         }
+         &.col-8 {
+            width: 80%;
+         }
       }
    }
+}
 
+@include breakpoint('desktop') {
+   wjh-grid .wrap {
+      max-width: 1020px;
+   }
 }

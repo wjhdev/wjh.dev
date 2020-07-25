@@ -1,4 +1,9 @@
 wjh-post {
+    wjh-grid {
+        .wrap {
+            border-top: 2px solid rgba(white,.3);
+        }
+    }
     .back a {
         width: 100%;
         display: inline-block;
@@ -38,10 +43,13 @@ wjh-post {
         display: block;
     }
     .feature-image {
-        width: 100%;
+        float: right;
+        margin-right: -42.85%;
+        padding-left: 40px;
+        width: 66%;
         display: block;
         padding-bottom: 36px;
-        padding-top:24px;
+        padding-top: 24px;
         img {
             width: 100%;
         }
@@ -49,6 +57,7 @@ wjh-post {
     wp-author {
         margin-left: 6px;
         img {
+            
             position: relative;
             left: -6px;
             top: 7px;

@@ -16,6 +16,7 @@ export class WJHUpdates {
     if(!this.query) {
       return
     }
+    console.log(this.query)
     this.posts = await this.query.posts
   }
 

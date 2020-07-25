@@ -71,22 +71,12 @@ $gutterWidth: 14;
 
 @mixin breakpoint($breakpoint) {
 	@if $breakpoint == "tablet" {
-	  @media (min-width: pageWidth(6,2) + "px") {
-			@content;
-		}
-	}
-	@else if $breakpoint == "tabletxl" {
-		@media (min-width: pageWidth(9,2 + "px")) {
+	  @media (min-width: 600 + "px") {
 			@content;
 		}
 	}
 	@else if $breakpoint == "desktop" {
-		@media (min-width: pageWidth(12,6) + "px") {
-			@content;
-		}
-	}
-	@else if $breakpoint == "desktopxl" {
-		@media (min-width: pageWidth(15,12)) {
+		@media (min-width: 1020 + "px") {
 			@content;
 		}
 	}
