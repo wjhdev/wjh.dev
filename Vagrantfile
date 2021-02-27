@@ -4,27 +4,26 @@
 # todo: https://stackoverflow.com/questions/13065576/override-vagrant-configuration-settings-locally-per-dev
 
 Vagrant.configure("2") do |config|
-
   config.vm.box = "debian/contrib-buster64"
 
-  ## Forward ssh config
+  # Forward ssh config
   config.ssh.forward_agent = true
-  config.vm.provision "shell", inline: <<-SHELL
-    sudo apt-get update
-    sudo apt-get install -y git
-    mkdir -p ~/.ssh
-    chmod 700 ~/.ssh
-    ssh-keyscan -H github.com >> ~/.ssh/known_hosts    
-  SHELL
 
-  ## Install Puppet
-  config.vm.provision :shell, path: "server/provision.sh", privileged: false
+  # Provision
+  config.vm.provision "shell", inline: <<-SHELL
+    mkdir -p ~/node_modules
+    mkdir -p /home/vagrant/wjh.dev
+    mkdir -p /home/vagrant/wjh.dev/node_modules
+    chown vagrant:www-data ~/node_modules
+    mount --bind ~/node_modules /home/vagrant/wjh.dev/node_modules
+  SHELL
+  config.vm.provision :shell, path: "provision.sh", privileged: true
 
   # Hostname
   config.vm.network :private_network, :ip => "192.168.19.60"
   config.vm.network "private_network", type: "dhcp"
 
-  # Mount vagrant 
+  # Mount directory 
   config.vm.synced_folder ".", "/home/vagrant/wjh.dev", :group => "www-data", :mount_options => ['dmode=775','fmode=664']
   
   # Performance improvements
@@ -42,7 +41,7 @@ Vagrant.configure("2") do |config|
         cpus = `nproc`.to_i
         mem = `grep 'MemTotal' /proc/meminfo | sed -e 's/MemTotal://' -e 's/ kB//'`.to_i / 1024 / 4
 
-    # Windows...
+    # windows:
     else
         cpus = 4
         mem = 2048

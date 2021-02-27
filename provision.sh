@@ -1,16 +1,6 @@
 #!/bin/bash
 #
 # provision.sh
-#
-# 1. Sets clocks
-# 2. Install Docker
-# 3. Sign ssl certs
-# 4. Run
-#
-
-# 0. Args
-#
-DOMAIN="$1"
 
 # 1. Set Clocks
 #
@@ -19,33 +9,46 @@ dpkg-reconfigure --frontend noninteractive tzdata
 echo 'ntpdate ntp.ubuntu.com' > /etc/cron.daily/ntpdate
 chmod +x /etc/cron.daily/ntpdate
 
-# 2. Install Docker
-#
+# 2. Install Dependencies
+# 
 apt update -y
-sudo apt-get install \
+apt install -y curl git npm rsync
+
+# nodejs & npm:
+curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+apt install -y nodejs
+apt install -y npm
+
+npm install -g n
+npm install -g npm
+n stable
+
+# docker & npm:
+apt-get install \
     apt-transport-https \
     ca-certificates \
     curl \
     gnupg-agent \
     software-properties-common
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo apt-key add -
-sudo add-apt-repository \
+add-apt-repository \
    "deb [arch=amd64] https://download.docker.com/linux/debian \
    $(lsb_release -cs) \
    stable"
-sudo apt-get update -y
-sudo apt-get install docker-ce docker-ce-cli -y
-sudo apt-get install docker-compose -y
+apt-get update -y
+apt-get install docker-ce docker-ce-cli -y
+apt-get install docker-compose -y
 
-# 3. SSL
-#
-sh ~/wjh.dev/server/provision-ssl.sh $DOMAIN
 
-# 4. Run
+# 3. Build & Run
 #
-cd ~/wjh.dev
-sudo service docker start
-sudo docker network create wjh.dev-network
-sudo docker-compose up -d
+cd /home/vagrant/wjh.dev
+
+npm install
+npm run build
+
+service docker start
+docker network create wjh.dev-network
+docker-compose up -d
 
 echo 'Finished provision.sh'
