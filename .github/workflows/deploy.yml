@@ -19,5 +19,5 @@ jobs:
             cd ~/wjh.dev
             git pull
             npm run build
-            docker-compose up 
+            docker-compose up -d
             echo 'Deployment successful to Digital Ocean' 
