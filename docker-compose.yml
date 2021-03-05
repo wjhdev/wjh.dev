@@ -12,7 +12,7 @@ services:
       - 443:443
     volumes:
       - wjh.dev-wordpress:/var/www/html 
-      - ./wp-content:/var/www/html/wp-content/
+      - ./bin/wp-content:/var/www/html/wp-content/
       - ./${WORDPRESS_UPLOADS_DIR}:/var/www/html/wp-content/uploads
       
     restart: always
@@ -29,8 +29,7 @@ services:
     restart: always
     volumes: 
       - wjh.dev-wordpress:/var/www/html
-      - ./docker/wp-content/themes:/var/www/html/wp-content/themes/
-      - ./docker/app:/var/www/html/app
+      - ./bin/wp-content/themes:/var/www/html/wp-content/themes/
     environment:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}

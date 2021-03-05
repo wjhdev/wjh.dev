@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { Theme, TemplateQuery, TemplateType, TemplateFrontPageType, TemplateSingleType } from '@webpress/core';
+import { Theme, Template, TemplateType, TemplateFrontPageType, TemplateSingleType, Query } from '@webpress/core';
 
 @Component({
   tag: 'wjh-home',
@@ -7,7 +7,7 @@ import { Theme, TemplateQuery, TemplateType, TemplateFrontPageType, TemplateSing
 })
 export class WjhHome {
   @Prop() theme : Theme
-  @Prop() query : TemplateQuery
+  @Prop() query : Query<Template>
 
   render() {
     return (

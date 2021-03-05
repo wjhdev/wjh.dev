@@ -1,12 +1,12 @@
 import { Component, h, Prop, Listen, State } from '@stencil/core';
-import { Query, Single } from '@webpress/core';
+import { Query, Single, Post } from '@webpress/core';
 
 @Component({
   tag: 'wjh-updates',
   styleUrl: 'wjh-updates.scss',
 })
 export class WJHUpdates {
-  @Prop() query: Query
+  @Prop() query: Query<Post[]>
 
   @State() mobile : boolean = false;
 
@@ -16,11 +16,9 @@ export class WJHUpdates {
     if(!this.query) {
       return
     }
-    console.log(this.query)
-    this.posts = await this.query.posts
   }
 
-  @Listen('breakpointChanged', { target: 'parent' })
+  @Listen('breakpointChanged', { target: "document" })
   breakpointChanged(event : CustomEvent<number>) {
     this.mobile = (event.detail === 1)
   }

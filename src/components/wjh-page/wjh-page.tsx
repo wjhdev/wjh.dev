@@ -1,12 +1,13 @@
 import { Component, h, Prop, State } from '@stencil/core';
-import { Query, Single, Author, Media } from '@webpress/core';
+import { Query, Single, Author, Media, Page } from '@webpress/core';
 
 @Component({
   tag: 'wjh-page',
   styleUrl: 'wjh-page.scss',
 })
 export class WJHPage {
-  @Prop() query : Query
+  @Prop() query : Query<Page>
+
   @State() post: Single
   @State() author : Author
   @State() feature: Media
@@ -14,10 +15,10 @@ export class WJHPage {
   async componentWillRender() {
     if(!this.query) {
       return
-    }
-    this.post = (await this.query.posts)[0] as Single
-    this.feature = await this.post.featuredMedia.query
-    this.author = await this.post.author.query
+    } 
+    this.post = await this.query.result
+    this.feature = await this.post.featuredMedia
+   // this.author = await this.post.author
   }
 
   render() {

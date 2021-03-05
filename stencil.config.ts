@@ -8,7 +8,7 @@ export const config: Config = {
       type: 'www',
       serviceWorker: null, // disable service workers,
       buildDir: 'app',
-      dir: 'server/wp-content/themes/wjh.dev/',
+      dir: 'bin/wp-content/themes/wjh.dev/',
       copy: [
         { src: 'style.css' },
         { src: 'index.php' },

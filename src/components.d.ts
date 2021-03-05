@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Query, TemplateQuery, Theme, } from "@webpress/core";
+import { Page, Post, Query, SingleQuery, Template, Theme, } from "@webpress/core";
 export namespace Components {
     interface Wjh404 {
     }
@@ -13,7 +13,7 @@ export namespace Components {
         "color": string;
     }
     interface WjhFrontPage {
-        "query": Query;
+        "query": SingleQuery<Page>;
     }
     interface WjhGrid {
     }
@@ -21,17 +21,17 @@ export namespace Components {
         "color": string;
     }
     interface WjhHome {
-        "query": TemplateQuery;
+        "query": Query<Template>;
         "theme": Theme;
     }
     interface WjhPage {
-        "query": Query;
+        "query": Query<Page>;
     }
     interface WjhPost {
-        "query": Query;
+        "query": Query<Post>;
     }
     interface WjhUpdates {
-        "query": Query;
+        "query": Query<Post[]>;
     }
 }
 declare global {
@@ -108,7 +108,7 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface WjhFrontPage {
-        "query"?: Query;
+        "query"?: SingleQuery<Page>;
     }
     interface WjhGrid {
     }
@@ -116,17 +116,17 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface WjhHome {
-        "query"?: TemplateQuery;
+        "query"?: Query<Template>;
         "theme"?: Theme;
     }
     interface WjhPage {
-        "query"?: Query;
+        "query"?: Query<Page>;
     }
     interface WjhPost {
-        "query"?: Query;
+        "query"?: Query<Post>;
     }
     interface WjhUpdates {
-        "query"?: Query;
+        "query"?: Query<Post[]>;
     }
     interface IntrinsicElements {
         "wjh-404": Wjh404;

@@ -6,6 +6,5 @@ www
 
 *.env
 
-docker/wp-content
-themes/*
-uploads/*
+bin/*
+server

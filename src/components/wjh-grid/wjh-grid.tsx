@@ -1,4 +1,4 @@
-import { Component, Listen, h, State, Host } from "@stencil/core"
+import { Component, Listen, h, State } from "@stencil/core"
 
 @Component({
 	tag: "wjh-grid",
@@ -12,18 +12,14 @@ export class WjhGrid {
 		if (ev.key == "~") {
 			this.grid = !this.grid
 		}
-		console.log(ev.key)
 	}
 
 	render() {
-		return (
-			<Host>
-				<div class="wrap">
-				<slot name="left" />
-				<slot name="right" />
-				<div style={{"clear": "both"}} />
+		return <div class="wrap">
+					<slot name="left" />
+					<slot name="right" />
+					<div style={{"clear": "both"}} />
 				</div>
-			</Host>
-		)
+
 	}
 }

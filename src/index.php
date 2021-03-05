@@ -9,8 +9,8 @@
   <title>
     <?php echo wp_title("&middot;",true,"right"); ?>
   </title>
-  <link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7844898/7618412/css/fonts.css" />
-  <?php wp_head(); ?>
+  <!--<link rel="stylesheet" type="text/css" href="https://cloud.typography.com/7844898/7618412/css/fonts.css" />
+--><?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?>>
   <webpress-theme id="theme"></webpress-theme>

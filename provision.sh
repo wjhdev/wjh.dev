@@ -16,6 +16,7 @@ apt install -y curl git npm rsync
 
 # nodejs & npm:
 curl -sL https://deb.nodesource.com/setup_current.x | sudo -E bash -
+apt update -y
 apt install -y nodejs
 apt install -y npm
 
@@ -24,7 +25,7 @@ npm install -g npm
 n stable
 
 # docker & npm:
-apt-get install \
+apt-get install -y \
     apt-transport-https \
     ca-certificates \
     curl \

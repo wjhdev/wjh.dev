@@ -8,7 +8,7 @@ import 'highlight.js'
   styleUrl: 'wjh-post.scss',
 })
 export class WJHPost implements QueryContextual  {
-  @Prop() query: Query 
+  @Prop() query: Query<Post>
   @State() post: Post
   @State() feature: Media
   @State() author: Author
@@ -17,13 +17,12 @@ export class WJHPost implements QueryContextual  {
     if(!this.query || this.post) {
       return
     }
-    this.post = (await this.query.posts)[0] as Post
-    this.feature = await this.post.featuredMedia.query
-    this.author = await this.post.author.query
+    this.post = await this.query.result
+    this.feature = (await this.post.featuredMedia)
+    this.author = await this.post.author
   }
 
   render() {
-    console.log("feature",this.feature, this.post)
     if(!this.query || !this.post) {
       return
     }
@@ -31,10 +30,7 @@ export class WJHPost implements QueryContextual  {
       <div slot="left" class="update right center col-7">
         <wp-media media={this.feature} class="feature-image" />
         <wp-title post={this.post} />
-        <wp-subhead post={this.post} />
-        <wp-author author={this.author} />, <wp-date post={this.post}/>
-        
-        
+        <wp-subhead post={this.post} />     
         <wp-running-copy post={this.post}></wp-running-copy>
       </div>
       </wjh-grid>
