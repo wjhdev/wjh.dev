@@ -1,5 +1,5 @@
 import { Component, h, Prop } from '@stencil/core';
-import { Theme, Template, TemplateType, TemplateFrontPageType, TemplateSingleType, Query } from '@webpress/core';
+import { Theme, Template } from '@webpress/core';
 
 @Component({
   tag: 'wjh-home',
@@ -7,23 +7,23 @@ import { Theme, Template, TemplateType, TemplateFrontPageType, TemplateSingleTyp
 })
 export class WjhHome {
   @Prop() theme : Theme
-  @Prop() query : Query<Template>
+  @Prop() query : Template.Query
 
   render() {
     return (
       [
       <wjh-header-ribbon color="#A2E75A"></wjh-header-ribbon>,
       <wp-router query={this.query}>
-        <wp-template args={ { type : TemplateType.FrontPage, frontPageType: TemplateFrontPageType.Page  } } component="wjh-front-page"></wp-template>
-        <wp-template args={ { 
-          type : TemplateType.Single
+        <wp-template definition={ { type : Template.TemplateType.FrontPage, frontPageType: Template.FrontPageType.Page  } } component="wjh-front-page"></wp-template>
+        <wp-template definition={ { 
+          type : Template.TemplateType.Single
         } } component="wjh-post"></wp-template>
-        <wp-template args={ { 
-          type : TemplateType.Single,
-          singleType: TemplateSingleType.Page 
+        <wp-template definition={ { 
+          type : Template.TemplateType.Single,
+          singleType: Template.SingleType.Page 
         } }  component="wjh-page"></wp-template>
-        <wp-template args={ { type : TemplateType.PageNotFound} }  component="wjh-404"></wp-template>
-        <wp-template args={ { type : TemplateType.Blog} }  component="wjh-updates"></wp-template>
+        <wp-template definition={ { type : Template.TemplateType.PageNotFound} }  component="wjh-404"></wp-template>
+        <wp-template definition={ { type : Template.TemplateType.Blog} }  component="wjh-updates"></wp-template>
       </wp-router>,
       <wjh-footer-ribbon color="#E85252"></wjh-footer-ribbon>,
       ]

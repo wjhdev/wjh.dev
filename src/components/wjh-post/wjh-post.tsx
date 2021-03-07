@@ -14,16 +14,17 @@ export class WJHPost implements QueryContextual  {
   @State() author: Author
 
   async componentWillRender() {
-    if(!this.query || this.post) {
+    if(!this.query) {
       return
     }
+    console.log(this.query)
     this.post = await this.query.result
     this.feature = (await this.post.featuredMedia)
     this.author = await this.post.author
   }
 
   render() {
-    if(!this.query || !this.post) {
+    if(!this.query) {
       return
     }
     return <wjh-grid>

@@ -21,7 +21,7 @@ export namespace Components {
         "color": string;
     }
     interface WjhHome {
-        "query": Query<Template>;
+        "query": Template.Query;
         "theme": Theme;
     }
     interface WjhPage {
@@ -31,7 +31,7 @@ export namespace Components {
         "query": Query<Post>;
     }
     interface WjhUpdates {
-        "query": Query<Post[]>;
+        "query": Query<Post>;
     }
 }
 declare global {
@@ -116,7 +116,7 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface WjhHome {
-        "query"?: Query<Template>;
+        "query"?: Template.Query;
         "theme"?: Theme;
     }
     interface WjhPage {
@@ -126,7 +126,7 @@ declare namespace LocalJSX {
         "query"?: Query<Post>;
     }
     interface WjhUpdates {
-        "query"?: Query<Post[]>;
+        "query"?: Query<Post>;
     }
     interface IntrinsicElements {
         "wjh-404": Wjh404;

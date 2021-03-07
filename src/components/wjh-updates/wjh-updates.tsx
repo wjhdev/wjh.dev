@@ -6,7 +6,7 @@ import { Query, Single, Post } from '@webpress/core';
   styleUrl: 'wjh-updates.scss',
 })
 export class WJHUpdates {
-  @Prop() query: Query<Post[]>
+  @Prop() query: Query<Post>
 
   @State() mobile : boolean = false;
 
@@ -16,6 +16,9 @@ export class WJHUpdates {
     if(!this.query) {
       return
     }
+
+    this.posts = await this.query.results
+    console.log("posty posts", this.posts)
   }
 
   @Listen('breakpointChanged', { target: "document" })
@@ -24,7 +27,7 @@ export class WJHUpdates {
   }
 
   renderSidebar() {
-    return 
+    return <div slot="left">sidebar...</div>
   }
 
   render() {
@@ -32,9 +35,9 @@ export class WJHUpdates {
       return
     }
     return (
-      <bhaa-wrapper class="donate">  
+      <wjh-grid>  
         {this.renderSidebar()}
-        <ol class="posts center right">
+        <ol slot="right">
           {this.posts.map(post => 
             <li>
             <wp-title post={post} permalink={true}></wp-title>
@@ -42,7 +45,7 @@ export class WJHUpdates {
             </li>
           )}
         </ol>
-      </bhaa-wrapper>
+      </wjh-grid>
     )
   }
 }

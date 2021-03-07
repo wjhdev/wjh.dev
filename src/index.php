@@ -17,7 +17,7 @@
 
   <script>
   var element = document.getElementById('theme')
-  element.context = webpress
+  element.global = webpress
   </script>
 
   <?php wp_footer(); ?>
