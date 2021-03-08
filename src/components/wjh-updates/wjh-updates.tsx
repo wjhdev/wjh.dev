@@ -7,7 +7,6 @@ import { Query, Single, Post } from '@webpress/core';
 })
 export class WJHUpdates {
   @Prop() query: Query<Post>
-
   @State() mobile : boolean = false;
 
   private posts : Single[]

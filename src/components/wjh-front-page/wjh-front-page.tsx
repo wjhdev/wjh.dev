@@ -15,6 +15,7 @@ export class WJHFrontPage {
 
   async componentWillRender() {
     if (!this.query) {
+      console.log("no query...")
       return;
     }
 
@@ -33,6 +34,7 @@ export class WJHFrontPage {
 
   render() {
     if (!this.page) {
+      console.log("no page...")
       return
     }
     return [
