@@ -5,7 +5,7 @@
  * It contains typing information for all components that exist in this project.
  */
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
-import { Page, Post, Query, SingleQuery, Template, Theme, } from "@webpress/core";
+import { Page, Post, Query, SingleQuery, Template, Theme } from "@webpress/core";
 export namespace Components {
     interface Wjh404 {
     }
