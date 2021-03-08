@@ -17,7 +17,9 @@ jobs:
      
           script: |
             cd ~/wjh.dev
+            git reset --hard HEAD
             git pull
+            git checkout master
             npm install
             npm run build
             docker-compose up -d
