@@ -1,42 +1,41 @@
-
 wjh-grid {
-   display: block;
-   position: relative;
-   .wrap {
-      margin: 0 auto;
-      max-width: 90%;
-   }
+  display: block;
+  position: relative;
+  .wrap {
+    margin: 0 auto;
+    max-width: 90%;
+  }
 }
-@include breakpoint('desktop') {
-   wjh-grid .wrap {
-      & > [slot=left] {
-         float: left;
+@include breakpoint("desktop") {
+  wjh-grid .wrap {
+    & > [slot="left"] {
+      float: left;
+    }
+    & > [slot="right"] {
+      float: right;
+    }
+    & > [slot] {
+      &.col-3 {
+        width: 30%;
       }
-      & > [slot=right] {
-         float: right;
+      &.col-4 {
+        width: 40%;
       }
-      & > [slot] {   
-         &.col-3 {
-            width: 30%;
-         }
-         &.col-4 {
-            width: 40%;
-         }
-         &.col-6 {
-            width: 60%;
-         }
-         &.col-7 {
-            width: 70%;
-         }
-         &.col-8 {
-            width: 80%;
-         }
+      &.col-6 {
+        width: 60%;
       }
-   }
+      &.col-7 {
+        width: 70%;
+      }
+      &.col-8 {
+        width: 80%;
+      }
+    }
+  }
 }
 
-@include breakpoint('desktop') {
-   wjh-grid .wrap {
-      max-width: 1020px;
-   }
+@include breakpoint("desktop") {
+  wjh-grid .wrap {
+    max-width: 1020px;
+  }
 }

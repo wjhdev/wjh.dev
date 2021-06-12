@@ -1,70 +1,67 @@
 wjh-post {
-    wjh-grid {
-        .wrap {
-            border-top: 2px solid rgba(white,.3);
-        }
+  wjh-grid {
+    .wrap {
+      border-top: 2px solid rgba(white, 0.3);
     }
-    .back a {
-        width: 100%;
-        display: inline-block;
-        padding-top: 10px;
-        font-weight: bolder;
-        color: #55ACEE;
-        font-weight: bold;
-        text-decoration: none;
-        margin-left: 4px;
-        &:hover {
-            border-top-color: black;
-            cursor: pointer;
-            color: black;
-            .arrow {
-                border-left-color: black;
-                border-bottom-color: black; 
-            }
-        }
-        padding-bottom: 18px;  
-
+  }
+  .back a {
+    width: 100%;
+    display: inline-block;
+    padding-top: 10px;
+    font-weight: bolder;
+    color: #55acee;
+    font-weight: bold;
+    text-decoration: none;
+    margin-left: 4px;
+    &:hover {
+      border-top-color: black;
+      cursor: pointer;
+      color: black;
+      .arrow {
+        border-left-color: black;
+        border-bottom-color: black;
+      }
     }
-    .arrow {
-        width: 12px;
-        height: 12px;
-        transform: rotate(45deg);
-        position: relative;
-        left: 3px;
-        top: 1px;
-        display: inline-block;
-        border-left: 3px solid #55ACEE;
-        border-bottom: 3px solid #55ACEE; 
-           
+    padding-bottom: 18px;
+  }
+  .arrow {
+    width: 12px;
+    height: 12px;
+    transform: rotate(45deg);
+    position: relative;
+    left: 3px;
+    top: 1px;
+    display: inline-block;
+    border-left: 3px solid #55acee;
+    border-bottom: 3px solid #55acee;
+  }
+  .update {
+    padding-bottom: 60px;
+    padding-top: 18px;
+    display: block;
+  }
+  .feature-image {
+    float: right;
+    margin-right: -42.85%;
+    padding-left: 40px;
+    width: 66%;
+    display: block;
+    padding-bottom: 36px;
+    padding-top: 24px;
+    img {
+      width: 100%;
     }
-    .update {
-        padding-bottom: 60px;
-        padding-top: 18px;
-        display: block;
+  }
+  wp-author {
+    margin-left: 6px;
+    img {
+      position: relative;
+      left: -6px;
+      top: 7px;
+      max-width: 28px;
+      background: black;
+      border: 2px solid black;
+      border-radius: 18px;
     }
-    .feature-image {
-        float: right;
-        margin-right: -42.85%;
-        padding-left: 40px;
-        width: 66%;
-        display: block;
-        padding-bottom: 36px;
-        padding-top: 24px;
-        img {
-            width: 100%;
-        }
-    }
-    wp-author {
-        margin-left: 6px;
-        img {
-            
-            position: relative;
-            left: -6px;
-            top: 7px;
-            max-width: 28px;
-            background: black;
-            border: 2px solid black;
-            border-radius: 18px;
-        }
-    }
+  }
 }

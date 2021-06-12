@@ -1,50 +1,50 @@
-import { Component, h, Prop, Listen, State } from '@stencil/core';
-import { Query, Single, Post } from '@webpress/core';
+import { Component, h, Prop, Listen, State } from "@stencil/core";
+import { Query, Single, Post } from "@webpress/core";
 
 @Component({
-  tag: 'wjh-updates',
-  styleUrl: 'wjh-updates.scss',
+  tag: "wjh-updates",
+  styleUrl: "wjh-updates.scss",
 })
 export class WJHUpdates {
-  @Prop() query: Query<Post>
-  @State() mobile : boolean = false;
+  @Prop() query: Query<Post>;
+  @State() mobile: boolean = false;
 
-  private posts : Single[]
+  private posts: Single[];
 
   async componentWillRender() {
-    if(!this.query) {
-      return
+    if (!this.query) {
+      return;
     }
 
-    this.posts = await this.query.results
-    console.log("posty posts", this.posts)
+    this.posts = await this.query.results;
+    console.log("posty posts", this.posts);
   }
 
-  @Listen('breakpointChanged', { target: "document" })
-  breakpointChanged(event : CustomEvent<number>) {
-    this.mobile = (event.detail === 1)
+  @Listen("breakpointChanged", { target: "document" })
+  breakpointChanged(event: CustomEvent<number>) {
+    this.mobile = event.detail === 1;
   }
 
   renderSidebar() {
-    return <div slot="left">sidebar...</div>
+    return <div slot="left">sidebar...</div>;
   }
 
   render() {
-    if(!this.posts) {
-      return
+    if (!this.posts) {
+      return;
     }
     return (
-      <wjh-grid>  
+      <wjh-grid>
         {this.renderSidebar()}
         <ol slot="right">
-          {this.posts.map(post => 
+          {this.posts.map((post) => (
             <li>
-            <wp-title post={post} permalink={true}></wp-title>
-            <wp-excerpt-copy post={post}></wp-excerpt-copy>
+              <wp-title post={post} permalink={true}></wp-title>
+              <wp-excerpt-copy post={post}></wp-excerpt-copy>
             </li>
-          )}
+          ))}
         </ol>
       </wjh-grid>
-    )
+    );
   }
 }

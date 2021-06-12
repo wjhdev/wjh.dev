@@ -6,5 +6,5 @@ www
 
 *.env
 
-bin/*
+bin
 server

@@ -1,21 +1,21 @@
 wjh-footer-ribbon {
-    display: block;
-    margin-top: 240px;
-    color: #195663;
-    div.ribbon {
-        width: 100%;
-        height: 10px;
-        position: fixed;
-        bottom: 0px;
+  display: block;
+  margin-top: 240px;
+  color: #195663;
+  div.ribbon {
+    width: 100%;
+    height: 10px;
+    position: fixed;
+    bottom: 0px;
+  }
+  .colophon {
+    padding-bottom: 24px;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    b,
+    a {
+      color: #287e91;
+      font-weight: 600;
     }
-    .colophon {
-        padding-bottom: 24px;
-        font-weight: 400;
-        letter-spacing: -0.02em;
-        b, a {
-            color: #287e91;
-            font-weight: 600;
-        }
-    }
-
+  }
 }

@@ -1,34 +1,31 @@
-
 wjh-front-page {
-    .welcome {
-        a {
-            font-weight: 700;
-        }
+  .welcome {
+    a {
+      font-weight: 700;
     }
-    wjh-grid {
-        .wrap {
-            border-top: 2px solid rgba(white,.3);
-            padding-top: 36px;
-            margin-bottom: 60px;
-        }
-        display: block;
+  }
+  wjh-grid {
+    .wrap {
+      border-top: 2px solid rgba(white, 0.3);
+      padding-top: 36px;
+      margin-bottom: 60px;
     }
-    width: 100%;
-    .blog {
-        .post {
-            margin-bottom: 80px;
-            h2 {
-                font-size: 32px;
-                max-width: 90%;
-                margin-bottom: 0px;
-            }
-        }
-        wp-date {
-            font-weight: 400;
-            letter-spacing: -0.02em;
-            display: inline;
-        }
+    display: block;
+  }
+  width: 100%;
+  .blog {
+    .post {
+      margin-bottom: 80px;
+      h2 {
+        font-size: 32px;
+        max-width: 90%;
+        margin-bottom: 0px;
+      }
     }
-    
+    wp-date {
+      font-weight: 400;
+      letter-spacing: -0.02em;
+      display: inline;
+    }
+  }
 }
-
