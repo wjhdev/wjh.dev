@@ -10,6 +10,9 @@ export class WjhHome {
   @Prop() query : Template.Query
 
   render() {
+    if(!this.query) {
+      return
+    }
     return (
       [
       <wjh-header-ribbon color="#A2E75A"></wjh-header-ribbon>,
