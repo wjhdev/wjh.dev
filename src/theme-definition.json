@@ -15,5 +15,6 @@
     ],
     "themeSupport": [
         "post-thumbnails"
-    ]
+    ],
+    "features" : { "socialTags": true }
 }
