@@ -3,78 +3,104 @@ version: "3"
 services:
   nginx:
     build:
-      context: docker/nginx
-    container_name: wjh.dev-nginx
+      context: config/nginx
+    container_name: ${COMPOSE_PROJECT_NAME}-nginx
     links:
       - wordpress
     ports:
       - 80:80
       - 443:443
     volumes:
-      - wjh.dev-wordpress:/var/www/html 
-      - ./bin/wp-content:/var/www/html/wp-content/
+      - wjh.dev-wordpress:/var/www/html
+      - ./bin/wp-content/themes:/var/www/html/wp-content/themes/
+      - ./bin/wp-content/plugins:/var/www/html/wp-content/plugins/
       - ./${WORDPRESS_UPLOADS_DIR}:/var/www/html/wp-content/uploads
-      
     restart: always
-    environment: 
+    logging:
+      options:
+        max-size: 10m
+        max-file: 10
+    environment:
       DOMAIN: ${SITE_URL}
 
   wordpress:
-    container_name: wjh.dev-wordpress
+    build:
+      context: config/wordpress
+    container_name: ${COMPOSE_PROJECT_NAME}-wordpress
+    links:
+      - redis
     depends_on:
       - mariadb
-    image: wordpress:latest
     expose:
       - 80
     restart: always
-    volumes: 
+    logging:
+      options:
+        max-size: 10m
+        max-file: 10
+    volumes:
       - wjh.dev-wordpress:/var/www/html
+      - ./${WORDPRESS_UPLOADS_DIR}:/var/www/html/wp-content/uploads
+      - ./bin/stencil-stats.json:/srv/stencil-stats.json
       - ./bin/wp-content/themes:/var/www/html/wp-content/themes/
+      - ./bin/wp-content/plugins:/var/www/html/wp-content/plugins/
+      - ./bin/wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins/
+      - ./config/wordpress/wp-content/object-cache.php:/var/www/html/wp-content/object-cache.php
+      - ./config/wordpress/php.ini:/usr/local/etc/php/conf.d/extra.ini
+      - ./config/wordpress/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-my-extra.conf
     environment:
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
       WORDPRESS_DB_NAME: ${WORDPRESS_DB_NAME}
-      WORDPRESS_CONFIG_EXTRA: |
+      WORDPRESS_CONFIG_EXTRA:
         /* Domain */
         define('WP_HOME','https://${SITE_URL}');
         define('WP_SITEURL','https://${SITE_URL}');
+        define('EXA_DEV','false');
         define('WP_CACHE',true);
         define('WP_MEMORY_LIMIT','128M');
-        $$memcached_servers = array(
-          'default' => array(
-            'memcached:11211',
-          )
-        );
+        define('WP_REDIS_HOST', 'redis');
+        define('WP_CACHE_KEY_SALT', '${SITE_URL}');
+        define('DISABLE_WP_CRON', true);
 
-  memcached:
-    container_name: wjh.dev-memcached
-    image: memcached:latest
+  redis:
+    container_name: ${COMPOSE_PROJECT_NAME}-redis
+    image: redis:6
+    restart: always
+    logging:
+      options:
+        max-size: 10m
+        max-file: 10
     ports:
-      - "11211:11211"
+      - "6379:6379"
 
   mariadb:
-    container_name: wjh.dev-mariadb
+    container_name: ${COMPOSE_PROJECT_NAME}-mariadb
     image: mariadb
     volumes:
-      - ./docker/sql/install/:/docker-entrypoint-initdb.d
-      - ./docker/sql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - ./config/mariadb/install/:/docker-entrypoint-initdb.d
+      - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
       - wjh.dev-mariadb:/var/lib/mysql:rw
     restart: always
+    command: mysqld
+    logging:
+      options:
+        max-size: 10m
+        max-file: 10
     expose:
       - 3306
-    environment: 
-      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+    environment:
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_USER: ${WORDPRESS_DB_USER}
       MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}  
 
-volumes: 
+volumes:
   wjh.dev-mariadb:
   wjh.dev-wordpress:
 
 networks:
   default:
-    external:
-      name: wjh.dev-network
-    
+    name: wjh.dev-network
+    external: true
