@@ -3,8 +3,8 @@
     "folder": "wjh.dev",
     "root": "wjh-home",
     "menus" : [
-        "main", 
-        "secondary"
+        { "location": "main", "description": "Main Menu" },
+        { "location": "secondary", "description": "Secondary Menu" }
     ],
     "sidebar" : [
         {
