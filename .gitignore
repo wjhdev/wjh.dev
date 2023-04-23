@@ -5,6 +5,7 @@ node_modules
 www
 
 *.env
+!dev.env
 
 bin
 server
