@@ -21,7 +21,7 @@ export namespace Components {
         "color": string;
     }
     interface WjhHome {
-        "query": Template.Query;
+        "query": Query<Template>;
         "theme": Theme;
     }
     interface WjhPage {
@@ -116,7 +116,7 @@ declare namespace LocalJSX {
         "color"?: string;
     }
     interface WjhHome {
-        "query"?: Template.Query;
+        "query"?: Query<Template>;
         "theme"?: Theme;
     }
     interface WjhPage {

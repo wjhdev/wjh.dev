@@ -1,5 +1,6 @@
 import { Component, h, Prop } from "@stencil/core";
-import { Theme, Template } from "@webpress/core";
+import { Theme, Template, Query } from "@webpress/core";
+import { Hierarchy } from "@webpress/router";
 
 @Component({
   tag: "wjh-home",
@@ -7,44 +8,40 @@ import { Theme, Template } from "@webpress/core";
 })
 export class WjhHome {
   @Prop() theme: Theme;
-  @Prop() query: Template.Query;
+  @Prop() query: Query<Template>;
 
   render() {
-    if (!this.query) {
-      return;
-    }
+    let hiearchy: Hierarchy.TemplateHierarchy = {
+      index: {
+        component: "bhaa-main",
+      },
+      frontPage: {
+        component: "wjh-front-page",
+      },
+      archive: {
+        component: "bhaa-main",
+        props: {
+          slug: "updates",
+        },
+      },
+      error404: {
+        component: "wjh-404",
+      },
+      blogPage: {
+        component: "wjh-updates",
+      },
+      singular: {
+        post: {
+          component: "wjh-post",
+        },
+        page: {
+          component: "wjh-page",
+        },
+      },
+    };
     return [
       <wjh-header-ribbon color="#A2E75A"></wjh-header-ribbon>,
-      <wp-router query={this.query}>
-        <wp-template
-          definition={{
-            type: Template.TemplateType.FrontPage,
-            frontPageType: Template.FrontPageType.Page,
-          }}
-          component="wjh-front-page"
-        ></wp-template>
-        <wp-template
-          definition={{
-            type: Template.TemplateType.Single,
-          }}
-          component="wjh-post"
-        ></wp-template>
-        <wp-template
-          definition={{
-            type: Template.TemplateType.Single,
-            singleType: Template.SingleType.Page,
-          }}
-          component="wjh-page"
-        ></wp-template>
-        <wp-template
-          definition={{ type: Template.TemplateType.PageNotFound }}
-          component="wjh-404"
-        ></wp-template>
-        <wp-template
-          definition={{ type: Template.TemplateType.Blog }}
-          component="wjh-updates"
-        ></wp-template>
-      </wp-router>,
+      <wp-router-two query={this.query} hiearchy={hiearchy} />,
       <wjh-footer-ribbon color="#E85252"></wjh-footer-ribbon>,
     ];
   }

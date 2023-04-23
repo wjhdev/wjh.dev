@@ -1,0 +1,28 @@
+services:
+  wordpress:
+    depends_on:
+      - mariadb
+
+  mariadb:
+    container_name: ${COMPOSE_PROJECT_NAME}-mariadb
+    image: mariadb
+    volumes:
+      - ./config/sql/install/:/docker-entrypoint-initdb.d
+      - ./config/sql/my.cnf:/etc/mysql/conf.d/my.cnf
+      - wjh.dev-mariadb:/var/lib/mysql:rw
+    restart: always
+    command: mysqld
+    logging:
+      options:
+        max-size: 10m
+        max-file: 10
+    expose:
+      - 3306
+    environment:
+      MYSQL_ROOT_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_USER: ${WORDPRESS_DB_USER}
+      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
+      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}
+
+volumes:
+  wjh.dev-mariadb:

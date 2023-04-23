@@ -12,9 +12,8 @@ services:
       - 443:443
     volumes:
       - wjh.dev-wordpress:/var/www/html
-      - ./bin/wp-content/themes:/var/www/html/wp-content/themes/
-      - ./bin/wp-content/plugins:/var/www/html/wp-content/plugins/
-      - ./${WORDPRESS_UPLOADS_DIR}:/var/www/html/wp-content/uploads
+      - ./${SITE_WP_CONTENT_DIR}/themes:/var/www/html/wp-content/themes
+      - ./${SITE_WP_CONTENT_DIR}/uploads:/var/www/html/wp-content/uploads
     restart: always
     logging:
       options:
@@ -24,13 +23,10 @@ services:
       DOMAIN: ${SITE_URL}
 
   wordpress:
-    build:
-      context: config/wordpress
+    image: ghcr.io/broadsheet-technology/wordpress:0.4
     container_name: ${COMPOSE_PROJECT_NAME}-wordpress
     links:
       - redis
-    depends_on:
-      - mariadb
     expose:
       - 80
     restart: always
@@ -40,15 +36,12 @@ services:
         max-file: 10
     volumes:
       - wjh.dev-wordpress:/var/www/html
-      - ./${WORDPRESS_UPLOADS_DIR}:/var/www/html/wp-content/uploads
+      - ./${SITE_WP_CONTENT_DIR}/themes:/var/www/html/wp-content/themes
+      - ./${SITE_WP_CONTENT_DIR}/uploads:/var/www/html/wp-content/uploads
       - ./bin/stencil-stats.json:/srv/stencil-stats.json
-      - ./bin/wp-content/themes:/var/www/html/wp-content/themes/
-      - ./bin/wp-content/plugins:/var/www/html/wp-content/plugins/
-      - ./bin/wp-content/mu-plugins:/var/www/html/wp-content/mu-plugins/
-      - ./config/wordpress/wp-content/object-cache.php:/var/www/html/wp-content/object-cache.php
-      - ./config/wordpress/php.ini:/usr/local/etc/php/conf.d/extra.ini
-      - ./config/wordpress/php-fpm.conf:/usr/local/etc/php-fpm.d/zzz-my-extra.conf
     environment:
+      NRIA_LICENSE_KEY: ${NRIA_LICENSE_KEY}
+      NRIA_APP_NAME: ${SITE_URL}-wordpress\/app
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}
@@ -57,12 +50,17 @@ services:
         /* Domain */
         define('WP_HOME','https://${SITE_URL}');
         define('WP_SITEURL','https://${SITE_URL}');
-        define('EXA_DEV','false');
         define('WP_CACHE',true);
         define('WP_MEMORY_LIMIT','128M');
         define('WP_REDIS_HOST', 'redis');
+        define('WP_REDIS_PASSWORD', '${REDIS_PASSWORD}' );
         define('WP_CACHE_KEY_SALT', '${SITE_URL}');
         define('DISABLE_WP_CRON', true);
+        $$memcached_servers = array(
+          'default' => array(
+            'memcached:11211',
+          )
+        );
 
   redis:
     container_name: ${COMPOSE_PROJECT_NAME}-redis
@@ -75,29 +73,7 @@ services:
     ports:
       - "6379:6379"
 
-  mariadb:
-    container_name: ${COMPOSE_PROJECT_NAME}-mariadb
-    image: mariadb
-    volumes:
-      - ./config/mariadb/install/:/docker-entrypoint-initdb.d
-      - ./config/mariadb/my.cnf:/etc/mysql/conf.d/my.cnf
-      - wjh.dev-mariadb:/var/lib/mysql:rw
-    restart: always
-    command: mysqld
-    logging:
-      options:
-        max-size: 10m
-        max-file: 10
-    expose:
-      - 3306
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_USER: ${WORDPRESS_DB_USER}
-      MYSQL_PASSWORD: ${WORDPRESS_DB_PASSWORD}
-      MYSQL_DATABASE: ${WORDPRESS_DB_NAME}  
-
 volumes:
-  wjh.dev-mariadb:
   wjh.dev-wordpress:
 
 networks:

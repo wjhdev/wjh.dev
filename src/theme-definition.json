@@ -2,13 +2,19 @@
     "name": "wjh.dev",
     "folder": "wjh.dev",
     "root": "wjh-home",
-    "menus" : [
-        { "location": "main", "description": "Main Menu" },
-        { "location": "secondary", "description": "Secondary Menu" }
-    ],
-    "sidebar" : [
+    "menus": [
         {
-            "name" : "Main Sidebar",
+            "location": "main",
+            "description": "Main Menu"
+        },
+        {
+            "location": "secondary",
+            "description": "Secondary Menu"
+        }
+    ],
+    "sidebar": [
+        {
+            "name": "Main Sidebar",
             "id": "sidebar-main",
             "description": "The main sidebar for the WebPress starter theme"
         }
@@ -16,5 +22,7 @@
     "themeSupport": [
         "post-thumbnails"
     ],
-    "features" : { "socialTags": true }
+    "features": {
+        "socialTags": true
+    }
 }
