@@ -12,7 +12,6 @@ services:
       - 443:443
     volumes:
       - wjh.dev-wordpress:/var/www/html
-      - ./${SITE_WP_CONTENT_DIR}/themes:/var/www/html/wp-content/themes
       - ./${SITE_WP_CONTENT_DIR}/uploads:/var/www/html/wp-content/uploads
     restart: always
     logging:
@@ -23,7 +22,7 @@ services:
       DOMAIN: ${SITE_URL}
 
   wordpress:
-    image: ghcr.io/broadsheet-technology/wordpress:0.4
+    image: ${WORDPRESS_IMAGE:-ghcr.io/wjhdev/wjh.dev:latest}
     container_name: ${COMPOSE_PROJECT_NAME}-wordpress
     links:
       - redis
@@ -36,12 +35,16 @@ services:
         max-file: 10
     volumes:
       - wjh.dev-wordpress:/var/www/html
-      - ./${SITE_WP_CONTENT_DIR}/themes:/var/www/html/wp-content/themes
       - ./${SITE_WP_CONTENT_DIR}/uploads:/var/www/html/wp-content/uploads
-      - ./bin/stencil-stats.json:/srv/stencil-stats.json
     environment:
       NRIA_LICENSE_KEY: ${NRIA_LICENSE_KEY}
       NRIA_APP_NAME: ${SITE_URL}-wordpress\/app
+      BT_PHP_PM: ${BT_PHP_PM:-dynamic}
+      BT_PHP_PM_MAX_CHILDREN: ${BT_PHP_PM_MAX_CHILDREN:-30}
+      BT_PHP_PM_MAX_REQUESTS: ${BT_PHP_PM_MAX_REQUESTS:-500}
+      BT_PHP_UPLOAD_MAX_FILESIZE: ${BT_PHP_UPLOAD_MAX_FILESIZE:-6M}
+      BT_PHP_OPCACHE_MAX_ACCELERATED_FILES: ${BT_PHP_OPCACHE_MAX_ACCELERATED_FILES:-20000}
+      BT_PHP_OPCACHE_MEMORY_CONSUMPTION: ${BT_PHP_OPCACHE_MEMORY_CONSUMPTION:-256}
       WORDPRESS_DB_HOST: ${WORDPRESS_DB_HOST}
       WORDPRESS_DB_USER: ${WORDPRESS_DB_USER}
       WORDPRESS_DB_PASSWORD: ${WORDPRESS_DB_PASSWORD}

@@ -1,0 +1,14 @@
+.DS_Store
+.env
+*.env
+!.env.example
+
+.git
+.github
+.stencil
+.vagrant
+
+bin
+node_modules
+server
+www
